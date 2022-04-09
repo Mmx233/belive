@@ -15,7 +15,12 @@ function NavApp() {
     let [searchParams, setSearchParams] = useSearchParams();
     return <ThemeProvider
         theme={createTheme({
-
+            palette: {
+                white: {
+                    main: '#fff',
+                    contrastText: '#fff',
+                },
+            },
         })}
     ><GlobalContext.Provider value={{
         Nav: useNavigate(),
