@@ -1,0 +1,21 @@
+#container{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+#container>*{
+    height: 100%;
+}
+
+#container #menu {
+    width: 16rem;
+}
+
+#container #content {
+    width: calc(100% - 16rem);
+    padding-top: 1.5em;
+}

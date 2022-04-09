@@ -7,8 +7,9 @@ import {ThemeProvider,createTheme} from '@mui/material/styles';
 import {GlobalContext} from "./global/context";
 
 import './index.css';
+import Index from './pages/index';
 
-function NavMenu() {
+function NavApp() {
     const [cookies, setCookie, removeCookie] = useCookies();
     const { enqueueSnackbar } = useSnackbar();
     let [searchParams, setSearchParams] = useSearchParams();
@@ -27,7 +28,11 @@ function NavMenu() {
         searchParams,
         setSearchParams,
     }}>
-        {/*menu*/}
+        <Index>
+            <Routes>
+
+            </Routes>
+        </Index>
     </GlobalContext.Provider>
     </ThemeProvider>
 }
@@ -36,7 +41,7 @@ ReactDOM.render(
   <React.StrictMode>
       <BrowserRouter>
           <SnackbarProvider maxSnack={3}>
-              <NavMenu/>
+              <NavApp/>
           </SnackbarProvider>
       </BrowserRouter>
   </React.StrictMode>,
