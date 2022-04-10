@@ -4,7 +4,7 @@ import { BrowserRouter,Routes,Route,useNavigate,useLocation,useSearchParams } fr
 import {useCookies} from 'react-cookie';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 import {ThemeProvider,createTheme} from '@mui/material/styles';
-import {Home,ImagesearchRoller} from "@mui/icons-material";
+import {Home,ImagesearchRoller,LocalAtm} from "@mui/icons-material";
 import {GlobalContext} from "./global/context";
 
 import './index.css';
@@ -14,6 +14,7 @@ function NavApp() {
     const els = [
         {name:'首页',path:'/',icon:<Home/>,element:null},
         {name:"样式生成器",path:"/style-generator",icon:<ImagesearchRoller/>,element:null},
+        {name:"打赏记录",path:"https://link.bilibili.com/ctool/vtuber/",icon:<LocalAtm/>,element:null},
     ]
     const [cookies, setCookie, removeCookie] = useCookies();
     const { enqueueSnackbar } = useSnackbar();
@@ -41,6 +42,7 @@ function NavApp() {
         <Main menu={els}>
             <Routes>
                 {els.map(e=>{
+                    if(e.path.indexOf('/')!==0)return null;
                     return <Route key={e.name} path={e.path} element={e.element}/>
                 })}
             </Routes>

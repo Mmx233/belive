@@ -5,6 +5,13 @@ import './menu.css';
 import {GlobalContext} from "../global/context";
 
 export default class Menu extends react.Component {
+    handleNavClick(target) {
+        if(target.indexOf('/') === 0) {
+            this.context.Nav(target);
+        }else {
+            window.open(target, '_blank');
+        }
+    }
     render(){
         return <Box
             id="menu"
@@ -34,7 +41,7 @@ export default class Menu extends react.Component {
                 {this.props.els.map(e=>{
                     return <ListItemButton
                         key={e.name}
-                        onClick={()=>this.context.Nav(e.path)}
+                        onClick={()=>this.handleNavClick(e.path)}
                         sx={{
                             padding:'1em 2.5em'
                         }}
