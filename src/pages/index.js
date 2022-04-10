@@ -12,6 +12,7 @@ class MenuButton extends react.Component {
       sx={{
         display: 'none',
         marginBottom: '1.5em',
+        position: this.props.position,
       }}
     ><Button
         variant={'outlined'}
@@ -38,11 +39,13 @@ export default class Index extends react.Component {
         id="container"
     >
       <Menu
+          els={this.props.menu}
           className={this.state.showMenu?"show":null}
       >
         <MenuButton
             onClick={this.handleMenuButtonClick}
             color={'white'}
+            position={'absolute'}
         >
           <Close/>
         </MenuButton>
