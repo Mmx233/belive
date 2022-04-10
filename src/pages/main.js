@@ -2,7 +2,7 @@ import react from "react";
 import {Container,Box,Button} from "@mui/material";
 import {Menu as MenuIcon,Close} from "@mui/icons-material";
 
-import './index.css';
+import './main.css';
 import Menu from "../components/menu";
 
 class MenuButton extends react.Component {
@@ -22,7 +22,7 @@ class MenuButton extends react.Component {
   }
 }
 
-export default class Index extends react.Component {
+export default class Main extends react.Component {
   constructor(props) {
     super(props);
     this.state={

@@ -1,7 +1,8 @@
 import react from 'react';
-import {Box,Typography,List,ListItem} from "@mui/material";
-
+import {Box,Typography,List,ListItemButton,ListItemIcon,ListItemText} from "@mui/material";
 import './menu.css';
+
+import {GlobalContext} from "../global/context";
 
 export default class Menu extends react.Component {
     render(){
@@ -25,11 +26,30 @@ export default class Menu extends react.Component {
                 backgroundColor="#2b2f3a"
             >Belive</Typography>
 
-            <List>
+            <List
+                sx={{
+                    padding: '0',
+                }}
+            >
                 {this.props.els.map(e=>{
-                    return <ListItem>{e.icon}{e.name}</ListItem>
+                    return <ListItemButton
+                        key={e.name}
+                        onClick={()=>this.context.Nav(e.path)}
+                        sx={{
+                            padding:'1em 2.5em'
+                        }}
+                    >
+                        <ListItemIcon
+                            sx={{
+                                minWidth: '2.5em',
+                            }}
+                        >{e.icon}</ListItemIcon>
+                        <ListItemText primary={e.name} />
+                    </ListItemButton>
                 })}
             </List>
         </Box>
     }
 }
+
+Menu.contextType = GlobalContext;

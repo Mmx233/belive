@@ -4,15 +4,16 @@ import { BrowserRouter,Routes,Route,useNavigate,useLocation,useSearchParams } fr
 import {useCookies} from 'react-cookie';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 import {ThemeProvider,createTheme} from '@mui/material/styles';
-import {Home} from "@mui/icons-material";
+import {Home,ImagesearchRoller} from "@mui/icons-material";
 import {GlobalContext} from "./global/context";
 
 import './index.css';
-import Index from './pages/index';
+import Main from './pages/main';
 
 function NavApp() {
     const els = [
         {name:'首页',path:'/',icon:<Home/>,element:null},
+        {name:"样式生成器",path:"/style-generator",icon:<ImagesearchRoller/>,element:null},
     ]
     const [cookies, setCookie, removeCookie] = useCookies();
     const { enqueueSnackbar } = useSnackbar();
@@ -37,13 +38,13 @@ function NavApp() {
         searchParams,
         setSearchParams,
     }}>
-        <Index menu={els}>
+        <Main menu={els}>
             <Routes>
                 {els.map(e=>{
                     return <Route key={e.name} path={e.path} element={e.element}/>
                 })}
             </Routes>
-        </Index>
+        </Main>
     </GlobalContext.Provider>
     </ThemeProvider>
 }
