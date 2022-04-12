@@ -11,20 +11,20 @@ export default class RoomGen extends react.Component {
         this.state={}
         //表单们
         this.state.General={
-            main: {
-
-            },
+            main: [
+                {label:"房间ID",value:1},
+            ],
             switches: [
-                {label:"显示消息弹幕",value:false},
-                {label:"显示醒目留言(SC)",value:false},
-                {label:"显示新舰长",value:false},
-                {label:"显示礼物",value:false},
-                {label:"显示礼物信息",value:false},
-                {label:"弹幕居下",value:false},
-                {label:"底部显示SC固定栏",value:false},
-                {label:"合并相似弹幕",value:false},
-                {label:"合并礼物",value:false},
-                {label:"只显示翻译弹幕",value:false},
+                {label:"显示消息弹幕",value:false,disabled:true},
+                {label:"显示醒目留言(SC)",value:false,disabled:true},
+                {label:"显示新舰长",value:false,disabled:true},
+                {label:"显示礼物",value:false,disabled:true},
+                {label:"显示礼物信息",value:false,disabled:true},
+                {label:"弹幕居下",value:false,disabled:true},
+                {label:"底部显示SC固定栏",value:false,disabled:true},
+                {label:"合并相似弹幕",value:false,disabled:true},
+                {label:"合并礼物",value:false,disabled:true},
+                {label:"只显示翻译弹幕",value:false,disabled:true},
             ]
         }
         //恢复表单记录
