@@ -41,6 +41,7 @@ export default class Menu extends react.Component {
                 {this.props.els.map(e=>{
                     return <ListItemButton
                         key={e.name}
+                        className={this.context.Location.pathname=== e.path ? 'active' : ''}
                         onClick={()=>this.handleNavClick(e.path)}
                         sx={{
                             padding:'1em 2.5em'
