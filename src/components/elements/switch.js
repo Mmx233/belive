@@ -1,8 +1,17 @@
-import {Switch} from '@mui/material';
+import react from "react";
+import {Switch,FormControlLabel} from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+export default class Switches extends react.Component {
+    render(){
+        return <FormControlLabel
+            control={<StyledSwitch {...this.props} />}
+            label={this.props.label}
+        />
+    }
+}
 
-export default styled(Switch)(({ theme }) => ({
+const StyledSwitch = styled(Switch)(({ theme }) => ({
     padding: 8,
     '& .MuiSwitch-track': {
         borderRadius: 22 / 2,
