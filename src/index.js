@@ -9,10 +9,11 @@ import {GlobalContext} from "./global/context";
 
 import './index.css';
 import Main from './pages/main';
+import RoomGen from "./pages/room-gen";
 
 function NavApp() {
     const els = [
-        {name:'首页',path:'/',icon:<Home/>,element:null},
+        {name:'首页',path:'/',icon:<Home/>,element:<RoomGen/>},
         {name:"样式生成器",path:"/style-generator",icon:<ImagesearchRoller/>,element:null},
         {name:"打赏记录",path:"https://link.bilibili.com/ctool/vtuber/",icon:<LocalAtm/>,element:null},
     ]
@@ -60,3 +61,5 @@ createRoot(document.getElementById('root')).render(
       </BrowserRouter>
   </React.StrictMode>
 );
+
+console.log(atob('ICAgX19fX18gICAgICAgICAgICAgICAgICAKICAvICAgICBcICAgX19fX18gX19fICBfX18KIC8gIFwgLyAgXCAvICAgICBcXCAgXC8gIC8KLyAgICBZICAgIFwgIFkgWSAgXD4gICAgPCAKXF9fX198X18gIC9fX3xffCAgL19fL1xfIFwKICAgICAgICBcLyAgICAgIFwvICAgICAgXC8='))
