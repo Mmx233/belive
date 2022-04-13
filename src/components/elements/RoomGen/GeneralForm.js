@@ -39,6 +39,7 @@ export default class GeneralForm extends react.Component {
                 return <Grid key={s.label} item xs={12} sm={6} md={4}>
                     <Switch
                         {...s}
+                        checked={s.value}
                         onChange={(e,v)=>this.handleSwitchChange(i,v)}
                     />
                 </Grid>
@@ -51,7 +52,7 @@ export default class GeneralForm extends react.Component {
         >
             {this.props.data.inputs.map((s,i)=>{
                 return <Grid
-                    key={s.label}
+                    key={s.key}
                     item xs={12} sm={6}
                     sx={{
                         '& .MuiTextField-root': { m: 1, width: '25ch' },
