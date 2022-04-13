@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter,Routes,Route,useNavigate,useLocation,useSearchParams } from "react-router-dom";
+import { BrowserRouter,Routes,Route,useNavigate,useSearchParams } from "react-router-dom";
 import {useCookies} from 'react-cookie';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 import {IconButton} from "@mui/material";
@@ -33,7 +33,6 @@ function NavApp() {
         })}
     ><GlobalContext.Provider value={{
         Nav: useNavigate(),
-        Location: useLocation(),
         Params:useSearchParams(),
         Alert:enqueueSnackbar,
         cookies,

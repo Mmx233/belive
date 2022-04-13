@@ -1,5 +1,5 @@
 import react from 'react';
-import {Box,TextField,Button,Tooltip} from '@mui/material'
+import {Box,TextField,Button,Tooltip,Stack} from '@mui/material'
 import {ContentCopy} from "@mui/icons-material";
 
 import {GlobalContext} from "../global/context";
@@ -119,6 +119,27 @@ export default class RoomGen extends react.Component {
                             ><ContentCopy fontSize={"small"}/></Button>
                         </Tooltip>
                     </Box>
+
+                    <Stack
+                        paddingTop={'1rem'}
+                        flexDirection={{xs:"column",md:"row"}}
+                        flexWrap={'wrap'}
+                        sx={{
+                            "&>*":{
+                                margin:{xs:"0 0 1em 0!important",md:"0 1em 0 0!important"},
+                            }
+                        }}
+                    >
+                        <Button variant={'contained'}>进入B站直播间</Button>
+                        <Button variant={'contained'}>进入房间</Button>
+                        <Button variant={'outlined'}>进入测试房间</Button>
+                        <Button variant={'outlined'}>导出配置</Button>
+                        <Button variant={'outlined'}>导入配置</Button>
+                        <Button variant={'outlined'} onClick={()=>{
+                            localStorage.clear();
+                            window.location.reload()
+                        }}>清除缓存</Button>
+                    </Stack>
                 </Box>
             </Block>
         </react.Fragment>
