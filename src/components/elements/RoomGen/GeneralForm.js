@@ -1,8 +1,8 @@
 import react from "react";
-import {Grid,TextField} from "@mui/material";
+import {Box,TextField} from "@mui/material";
 
-import Switch from "../switch";
 import InputArea from "../InputArea";
+import SwitchArea from "../SwitchArea";
 
 export default class GeneralForm extends react.Component {
     constructor(props) {
@@ -18,34 +18,22 @@ export default class GeneralForm extends react.Component {
         this.props.handleChange("inputs",index,value);
     }
     render(){
-        return <react.Fragment><Grid
-            container
-            rowSpacing={2}
-            flexShrink={1}
-            marginBottom={"2em"}
-        >
-            <Grid item xs={12}>
-                <TextField
-                    {...this.props.data.main[0]}
-                    onChange={(e)=>{
-                        if(!(e.target.value*1>0)){
-                            return
-                        }
-                        this.props.handleChange("main",0,e.target.value*1)
-                    }}
-                    fullWidth
-                />
-            </Grid>
-            {this.props.data.switches.map((s,i)=>{
-                return <Grid key={s.label} item xs={12} sm={6} md={4}>
-                    <Switch
-                        {...s}
-                        checked={s.value}
-                        onChange={(e,v)=>this.handleSwitchChange(i,v)}
-                    />
-                </Grid>
-            })}
-        </Grid>
+        return <react.Fragment>
+            <TextField
+                {...this.props.data.main[0]}
+                onChange={(e)=>{
+                    if(!(e.target.value*1>0)){
+                        return
+                    }
+                    this.props.handleChange("main",0,e.target.value*1)
+                }}
+                fullWidth
+            />
+
+            <SwitchArea
+                data={this.props.data.switches}
+                handleChange={this.handleSwitchChange}
+            />
 
             <InputArea
                 data={this.props.data.inputs}

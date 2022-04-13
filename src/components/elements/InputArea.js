@@ -7,6 +7,7 @@ export default class InputArea extends react.Component {
             container
             rowSpacing={2}
             flexShrink={1}
+            sx={this.props.sx}
         >
             {this.props.data.map((s,i)=>{
                 return <Grid
