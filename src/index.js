@@ -57,7 +57,10 @@ function NavApp() {
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
       <BrowserRouter>
-          <SnackbarProvider maxSnack={3}>
+          <SnackbarProvider maxSnack={3} anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+          }}>
               <NavApp/>
           </SnackbarProvider>
       </BrowserRouter>
