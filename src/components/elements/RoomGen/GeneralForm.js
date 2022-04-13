@@ -47,7 +47,7 @@ export default class GeneralForm extends react.Component {
         </Grid>
         <Grid
             container
-            rowSpacing={3}
+            rowSpacing={2}
             flexShrink={1}
         >
             {this.props.data.inputs.map((s,i)=>{
@@ -55,7 +55,7 @@ export default class GeneralForm extends react.Component {
                     key={s.key}
                     item xs={12} sm={6}
                     sx={{
-                        '& .MuiTextField-root': { m: 1, width: '25ch' },
+                        '& .MuiTextField-root': { m: 1, width: '25ch',maxWidth: '95%' }
                     }}
                 >
                     <TextField
