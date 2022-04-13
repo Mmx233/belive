@@ -28,6 +28,11 @@ export default class Tabs extends react.Component {
                 return <TabPanel
                     key={item.name}
                     value={String(i)}
+                    sx={{
+                        "&>*":{
+                            margin:'0.5rem auto'
+                        },
+                    }}
                 >{item.el}</TabPanel>
             })}
         </TabContext>

@@ -1,5 +1,5 @@
 import react from "react";
-import {Box,TextField} from "@mui/material";
+import {TextField} from "@mui/material";
 
 import InputArea from "../InputArea";
 import SwitchArea from "../SwitchArea";
