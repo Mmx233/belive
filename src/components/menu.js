@@ -2,8 +2,6 @@ import react from 'react';
 import {Box,Typography,List,ListItemButton,ListItemIcon,ListItemText} from "@mui/material";
 import './menu.css';
 
-import {GlobalContext} from "../global/context";
-
 export default class Menu extends react.Component {
     handleNavClick(target) {
         if(target.indexOf('/') === 0) {
@@ -41,7 +39,7 @@ export default class Menu extends react.Component {
                 {this.props.els.map(e=>{
                     return <ListItemButton
                         key={e.name}
-                        className={this.context.Location.pathname=== e.path ? 'active' : ''}
+                        className={document.location.pathname=== e.path ? 'active' : ''}
                         onClick={()=>this.handleNavClick(e.path)}
                         sx={{
                             padding:'1em 2.5em'
@@ -59,5 +57,3 @@ export default class Menu extends react.Component {
         </Box>
     }
 }
-
-Menu.contextType = GlobalContext;
