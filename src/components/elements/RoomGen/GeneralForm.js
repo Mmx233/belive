@@ -1,7 +1,8 @@
 import react from "react";
-import {Grid,TextField,MenuItem} from "@mui/material";
+import {Grid,TextField} from "@mui/material";
 
 import Switch from "../switch";
+import InputArea from "../InputArea";
 
 export default class GeneralForm extends react.Component {
     constructor(props) {
@@ -45,32 +46,11 @@ export default class GeneralForm extends react.Component {
                 </Grid>
             })}
         </Grid>
-        <Grid
-            container
-            rowSpacing={2}
-            flexShrink={1}
-        >
-            {this.props.data.inputs.map((s,i)=>{
-                return <Grid
-                    key={s.key}
-                    item xs={12} sm={6}
-                    sx={{
-                        '& .MuiTextField-root': { m: 1, width: '25ch',maxWidth: '95%' }
-                    }}
-                >
-                    <TextField
-                        {...s}
-                        onChange={(e)=>this.handleInputChange(i,e.target.value)}
-                    >
-                        {s.selection?s.selection.map((o)=>{
-                            return <MenuItem key={o.label} value={o.value}>
-                                {o.label}
-                            </MenuItem>
-                        }):null}
-                    </TextField>
-                </Grid>
-            })}
-        </Grid>
+
+            <InputArea
+                data={this.props.data.inputs}
+                handleChange={this.handleInputChange}
+            />
         </react.Fragment>
     }
 }
