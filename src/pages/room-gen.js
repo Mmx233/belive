@@ -7,10 +7,10 @@ import {GlobalContext} from "../global/context";
 
 import Block from '../components/elements/block';
 import Tabs from "../components/elements/tabs";
-import GeneralForm from "../components/elements/RoomGen/GeneralForm";
-import ForbidForm from "../components/elements/RoomGen/ForbidForm";
+import GeneralForm from "../components/RoomGen/GeneralForm";
+import ForbidForm from "../components/RoomGen/ForbidForm";
 
-import {General,Forbid} from '../components/elements/RoomGen/form.json';
+import {General,Forbid} from '../components/RoomGen/form.json';
 
 export default class RoomGen extends react.Component {
     constructor(props) {

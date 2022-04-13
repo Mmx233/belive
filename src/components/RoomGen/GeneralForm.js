@@ -1,8 +1,8 @@
 import react from "react";
 import {TextField} from "@mui/material";
 
-import InputArea from "../InputArea";
-import SwitchArea from "../SwitchArea";
+import InputArea from "../elements/InputArea";
+import SwitchArea from "../elements/SwitchArea";
 
 export default class GeneralForm extends react.Component {
     constructor(props) {

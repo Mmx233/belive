@@ -1,6 +1,6 @@
 import react from "react";
 
-import SwitchArea from "../SwitchArea";
+import SwitchArea from "../elements/SwitchArea";
 
 export default class ForbidForm extends react.Component {
     render(){
