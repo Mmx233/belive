@@ -1,6 +1,6 @@
 export let General={
     main: [
-        {label: "房间ID",key:"room", value: 1,min:1, disabled: false},
+        {label: "房间ID",key:"id", value: 1,min:1, disabled: false},
     ],
     switches: [
         {disabled: false,label: "显示消息弹幕",key:"show_danmaku", value: false},

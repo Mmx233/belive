@@ -1,5 +1,5 @@
 import react from 'react';
-import {Box} from '@mui/material'
+import {Box,TextField} from '@mui/material'
 
 import Block from '../components/elements/block';
 import Tabs from "../components/elements/tabs";
@@ -38,6 +38,7 @@ export default class RoomGen extends react.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleProps = this.handleProps.bind(this);
+        this.roomUrl = this.roomUrl.bind(this);
     }
     handleChange(space,name,index,value) {
         let data=this.state[space];
@@ -52,6 +53,18 @@ export default class RoomGen extends react.Component {
                 this.handleChange(space,name,index,value);
             }
         }
+    }
+    roomUrl(){
+        let query=[];
+        for(let k in this.state){
+            for(let e in this.state[k]) {
+                for(let i=0;i<this.state[k][e].length;i++) {
+                    let v=this.state[k][e][i]
+                    query.push(`${v.key}=${encodeURI(v.value)}`);
+                }
+            }
+        }
+        return document.location.origin+'/room?'+query.join('&');
     }
     render(){
         return <react.Fragment>
@@ -70,9 +83,23 @@ export default class RoomGen extends react.Component {
                         flexDirection:"column",
                         width:"100%",
                         height:"100%",
+                        padding:"2rem 1rem",
+                        boxSizing:"border-box",
                     }}
                 >
-
+                    <Box
+                        sx={{
+                            width:"100%",
+                        }}
+                    >
+                        <TextField
+                            label={"房间URL"}
+                            value={this.roomUrl()}
+                            sx={{
+                                width:"100%",
+                            }}
+                        />
+                    </Box>
                 </Box>
             </Block>
         </react.Fragment>
