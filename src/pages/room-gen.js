@@ -1,4 +1,5 @@
 import react from 'react';
+import iojson from 'iojson'
 import {Box,TextField,Button,Tooltip,Stack} from '@mui/material'
 import {ContentCopy} from "@mui/icons-material";
 
@@ -132,11 +133,22 @@ export default class RoomGen extends react.Component {
                             }
                         }}
                     >
-                        <Button variant={'contained'}>进入B站直播间</Button>
-                        <Button variant={'contained'}>进入房间</Button>
-                        <Button variant={'outlined'}>进入测试房间</Button>
-                        <Button variant={'outlined'}>导出配置</Button>
-                        <Button variant={'outlined'}>导入配置</Button>
+                        <Button variant={'contained'} disabled>进入B站直播间</Button>
+                        <Button variant={'contained'} disabled>进入房间</Button>
+                        <Button variant={'outlined'} disabled>进入测试房间</Button>
+                        <Button variant={'outlined'} onClick={()=>{
+                            iojson.exportJSON(localStorage, 'filename')
+                        }}>导出配置</Button>
+                        <Button variant={'outlined'} onClick={()=>{
+                            iojson.importJSON().then(data => {
+                                localStorage.clear()
+                                for(let k in data){
+                                    localStorage.setItem(k,data[k])
+                                }
+                                this.context.Alert('导入成功',{variant:'success'});
+                                setTimeout(()=>{document.location.reload()},1000)
+                            })
+                        }}>导入配置</Button>
                         <Button variant={'outlined'} onClick={()=>{
                             localStorage.clear();
                             document.location.reload()
