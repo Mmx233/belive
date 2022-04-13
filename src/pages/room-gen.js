@@ -1,5 +1,8 @@
 import react from 'react';
-import {Box,TextField} from '@mui/material'
+import {Box,TextField,Button,Tooltip} from '@mui/material'
+import {ContentCopy} from "@mui/icons-material";
+
+import {GlobalContext} from "../global/context";
 
 import Block from '../components/elements/block';
 import Tabs from "../components/elements/tabs";
@@ -90,18 +93,36 @@ export default class RoomGen extends react.Component {
                     <Box
                         sx={{
                             width:"100%",
+                            display:"flex",
+                            flexDirection:"row",
+                            justifyContent:"space-between",
                         }}
                     >
                         <TextField
+                            id={'room-url'}
                             label={"房间URL"}
                             value={this.roomUrl()}
                             sx={{
-                                width:"100%",
+                                width:"90%",
                             }}
                         />
+                        <Tooltip title={"复制"} placement="top" arrow>
+                            <Button
+                                variant={'contained'}
+                                onClick={()=>{
+                                    navigator.clipboard.writeText(document.getElementById('room-url').value).then(()=>{
+                                        this.context.Alert('复制成功',{variant:'success'});
+                                    }).catch(e=>{
+                                        this.context.Alert(`复制失败：${e}`,{variant:'error'});
+                                    })
+                                }}
+                            ><ContentCopy fontSize={"small"}/></Button>
+                        </Tooltip>
                     </Box>
                 </Box>
             </Block>
         </react.Fragment>
     }
 }
+
+RoomGen.contextType = GlobalContext;
