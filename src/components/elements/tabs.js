@@ -30,7 +30,7 @@ export default class Tabs extends react.Component {
                     value={String(i)}
                     sx={{
                         "&>*":{
-                            margin:'0.5rem auto'
+                            margin:'0.5rem auto!important',
                         },
                     }}
                 >{item.el}</TabPanel>
