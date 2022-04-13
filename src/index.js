@@ -3,8 +3,9 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter,Routes,Route,useNavigate,useLocation,useSearchParams } from "react-router-dom";
 import {useCookies} from 'react-cookie';
 import { SnackbarProvider, useSnackbar } from 'notistack';
+import {IconButton} from "@mui/material";
 import {ThemeProvider,createTheme} from '@mui/material/styles';
-import {Home,ImagesearchRoller,LocalAtm} from "@mui/icons-material";
+import {Home,ImagesearchRoller,LocalAtm,Close} from "@mui/icons-material";
 import {GlobalContext} from "./global/context";
 
 import './index.css';
@@ -54,13 +55,26 @@ function NavApp() {
     </ThemeProvider>
 }
 
+const noticeStackRef = React.createRef();
+const onClickDismiss = key => () => {
+    noticeStackRef.current.closeSnackbar(key);
+}
+
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
       <BrowserRouter>
-          <SnackbarProvider maxSnack={3} anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-          }}>
+          <SnackbarProvider
+              ref={noticeStackRef}
+              anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+              }}
+              action={(key) => (
+                  <IconButton onClick={onClickDismiss(key)}>
+                      <Close sx={{color:'white'}} fontSize={"small"}/>
+                  </IconButton>
+              )}
+          >
               <NavApp/>
           </SnackbarProvider>
       </BrowserRouter>
