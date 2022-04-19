@@ -128,8 +128,8 @@ export default class RoomGen extends react.Component {
                         flexDirection={{xs:"column",md:"row"}}
                         flexWrap={'wrap'}
                         sx={{
-                            "&>*":{
-                                margin:{xs:"0 0 1em 0!important",md:"0 1em 0 0!important"},
+                            "&>button":{
+                                margin:{xs:"0 0 1em 0!important",md:"0 1em 1em 0!important"},
                             }
                         }}
                     >

@@ -36,5 +36,8 @@ export let Forbid = {
         {disabled: false,label: "屏蔽非正式会员",key:"block_newbie", value: false},
         {disabled: false,label: "屏蔽未绑定手机用户",key:"block_no_mobile", value: false},
     ],
-
+    sliders: [
+        {label: "屏蔽用户等级低于",key:"block_level",value:0,min:0,max:60},
+        {label: "屏蔽勋章等级低于",key:"block_medal_level",value:0,min:0,max:40},
+    ]
 }
