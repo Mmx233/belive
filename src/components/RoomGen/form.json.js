@@ -39,5 +39,9 @@ export let Forbid = {
     sliders: [
         {label: "屏蔽用户等级低于",key:"block_level",value:0,min:0,max:60},
         {label: "屏蔽勋章等级低于",key:"block_medal_level",value:0,min:0,max:40},
+    ],
+    inputs:[
+        {label: "屏蔽关键词（一行一个）",key:"block_keywords", value: ""},
+        {label: "屏蔽用户",key:"block_users", value: ""}
     ]
 }

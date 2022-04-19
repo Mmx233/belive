@@ -1,6 +1,7 @@
 import react from "react";
 import {Box, Tab} from "@mui/material";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
+import {GlobalContext} from "../../global/context";
 
 export default class Tabs extends react.Component {
     constructor(props) {
@@ -8,13 +9,25 @@ export default class Tabs extends react.Component {
         this.state={
             selected:0,
         }
+
+        this.handleSelect = this.handleSelect.bind(this);
+    }
+    componentDidMount() {
+        let tab=this.context.searchParams.get("tab")
+        this.props.menu.forEach((v,i)=>{
+            if(v.name===tab){
+                this.setState({selected:i})
+            }
+        })
+    }
+    handleSelect(e,v){
+        this.setState({selected:v})
+        this.context.setSearchParams({tab:this.props.menu[v].name})
     }
     render(){
         return <TabContext value={String(this.state.selected)}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <TabList onChange={(e,v)=>{
-                    this.setState({selected:v})
-                }} aria-label="tabs">
+                <TabList onChange={this.handleSelect} aria-label="tabs">
                     {this.props.menu.map((item,i)=>{
                         return <Tab
                             key={item.name}
@@ -38,3 +51,5 @@ export default class Tabs extends react.Component {
         </TabContext>
     }
 }
+
+Tabs.contextType = GlobalContext;
