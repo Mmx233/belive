@@ -11,6 +11,7 @@ export default class Menu extends react.Component {
         }else {
             window.open(target, '_blank');
         }
+        this.props.unShow();
     }
     render(){
         return <Box

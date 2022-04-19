@@ -40,6 +40,7 @@ export default class Main extends react.Component {
     >
       <Menu
           els={this.props.menu}
+          unShow={()=>{this.setState({showMenu: false})}}
           className={this.state.showMenu?"show":null}
       >
         <MenuButton
