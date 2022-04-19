@@ -41,7 +41,7 @@ export let Forbid = {
         {label: "屏蔽勋章等级低于",key:"block_medal_level",value:0,min:0,max:40},
     ],
     inputs:[
-        {label: "屏蔽关键词（一行一个）",key:"block_keywords", value: ""},
-        {label: "屏蔽用户",key:"block_users", value: ""}
+        {label: "屏蔽关键词",helperText:'使用换行分隔',multiline:true,key:"block_keywords", value: ""},
+        {label: "屏蔽用户",helperText:'使用换行分隔',multiline:true,key:"block_users", value: ""}
     ]
 }
