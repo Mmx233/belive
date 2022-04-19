@@ -32,16 +32,23 @@ export let General={
 
 export let Forbid = {
     switches:[
-        {disabled: false,label: "屏蔽礼物弹幕",key:"block_gift_danmaku", value: false},
-        {disabled: false,label: "屏蔽非正式会员",key:"block_newbie", value: false},
-        {disabled: false,label: "屏蔽未绑定手机用户",key:"block_no_mobile", value: false},
+        {disabled: true,label: "屏蔽礼物弹幕",key:"block_gift_danmaku", value: false},
+        {disabled: true,label: "屏蔽非正式会员",key:"block_newbie", value: false},
+        {disabled: true,label: "屏蔽未绑定手机用户",key:"block_no_mobile", value: false},
     ],
     sliders: [
-        {label: "屏蔽用户等级低于",key:"block_level",value:0,min:0,max:60},
-        {label: "屏蔽勋章等级低于",key:"block_medal_level",value:0,min:0,max:40},
+        {disabled: true,label: "屏蔽用户等级低于",key:"block_level",value:0,min:0,max:60},
+        {disabled: true,label: "屏蔽勋章等级低于",key:"block_medal_level",value:0,min:0,max:40},
     ],
     inputs:[
-        {label: "屏蔽关键词",helperText:'使用换行分隔',multiline:true,key:"block_keywords", value: ""},
-        {label: "屏蔽用户",helperText:'使用换行分隔',multiline:true,key:"block_users", value: ""}
+        {disabled: true,label: "屏蔽关键词",helperText:'使用换行分隔',multiline:true,key:"block_keywords", value: ""},
+        {disabled: true,label: "屏蔽用户",helperText:'使用换行分隔',multiline:true,key:"block_users", value: ""}
     ]
+}
+
+export let Test = {
+    sliders: [
+        {disabled: true,label: "最小弹幕发送间隔",key:"min_test_danmaku_interval",value:2000,min:0,max:5000},
+        {disabled: true,label: "最大弹幕发送间隔",key:"max_test_danmaku_interval",value:5000,min:0,max:5000},
+    ],
 }

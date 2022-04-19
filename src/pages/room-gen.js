@@ -9,8 +9,9 @@ import Block from '../components/elements/block';
 import Tabs from "../components/elements/tabs";
 import GeneralForm from "../components/RoomGen/GeneralForm";
 import ForbidForm from "../components/RoomGen/ForbidForm";
+import TestForm from "../components/RoomGen/TestForm";
 
-import {General,Forbid} from '../components/RoomGen/form.json';
+import {General,Forbid,Test} from '../components/RoomGen/form.json';
 
 export default class RoomGen extends react.Component {
     constructor(props) {
@@ -19,6 +20,7 @@ export default class RoomGen extends react.Component {
         //表单
         this.state.General= General
         this.state.Forbid= Forbid
+        this.state.Test= Test
 
         //恢复表单记录
         for(let k in this.state){
@@ -78,7 +80,7 @@ export default class RoomGen extends react.Component {
                 <Tabs menu={[
                     {name:"常规",el:<GeneralForm {...this.handleProps("General")} />},
                     {name:"屏蔽",el:<ForbidForm {...this.handleProps("Forbid")}/>},
-                    {name:"测试",el:null}
+                    {name:"测试",el:<TestForm {...this.handleProps("Test")}/>}
                 ]}/>
             </Block>
 
