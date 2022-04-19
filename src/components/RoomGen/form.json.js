@@ -48,7 +48,7 @@ export let Forbid = {
 
 export let Test = {
     sliders: [
-        {disabled: true,label: "最小弹幕发送间隔",key:"min_test_danmaku_interval",value:2000,min:0,max:5000},
-        {disabled: true,label: "最大弹幕发送间隔",key:"max_test_danmaku_interval",value:5000,min:0,max:5000},
+        {disabled: true,label: "最小弹幕发送间隔（ms）",key:"min_test_danmaku_interval",value:2000,min:0,max:5000},
+        {disabled: true,label: "最大弹幕发送间隔（ms）",key:"max_test_danmaku_interval",value:5000,min:0,max:5000},
     ],
 }
