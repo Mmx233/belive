@@ -2,15 +2,15 @@ import react from 'react';
 import iojson from 'iojson'
 import {Box,TextField,Button,Tooltip,Stack} from '@mui/material'
 import {ContentCopy} from "@mui/icons-material";
-import {MainContext} from "../global/context";
+import {MainContext} from "../../global/context";
 
-import Block from '../components/elements/block';
-import Tabs from "../components/elements/tabs";
-import GeneralForm from "../components/RoomGen/GeneralForm";
-import ForbidForm from "../components/RoomGen/ForbidForm";
-import TestForm from "../components/RoomGen/TestForm";
+import Block from '../../components/elements/block';
+import Tabs from "../../components/elements/tabs";
+import GeneralForm from "../../components/RoomGen/GeneralForm";
+import ForbidForm from "../../components/RoomGen/ForbidForm";
+import TestForm from "../../components/RoomGen/TestForm";
 
-import {Range,General,Forbid,Test} from '../components/RoomGen/form.json';
+import {Range,General,Forbid,Test} from '../../components/RoomGen/form.json.js';
 
 export default class RoomGen extends react.Component {
     constructor(props) {

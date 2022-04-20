@@ -10,8 +10,8 @@ import './main.css';
 import Suspense from "../components/elements/Suspense";
 import Menu from "../components/menu";
 
-const NotFound = react.lazy(()=>import('./NotFound'))
-const RoomGen = react.lazy(()=>import('./room-gen'))
+const NotFound = react.lazy(()=>import('./main/NotFound'))
+const RoomGen = react.lazy(()=>import('./main/room-gen'))
 
 export default function Main(props){
   const noticeStackRef = react.createRef();
