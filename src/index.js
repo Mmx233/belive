@@ -11,6 +11,7 @@ import {GlobalContext} from "./global/context";
 import './index.css';
 import Main from './pages/main';
 import RoomGen from "./pages/room-gen";
+import Room from "./pages/room";
 import NotFound from "./pages/NotFound";
 
 function NavApp() {
@@ -47,6 +48,7 @@ function NavApp() {
                     if(e.path.indexOf('/')!==0)return null;
                     return <Route key={e.name} path={e.path} element={e.element}/>
                 })}
+                <Route path="/room" element={<Room/>}/>
                 <Route path="*" element={<NotFound/>} />
             </Routes>
         </Main>

@@ -137,7 +137,9 @@ export default class RoomGen extends react.Component {
                     >
                         <Button variant={'contained'} disabled>进入B站直播间</Button>
                         <Button variant={'contained'} disabled>进入房间</Button>
-                        <Button variant={'outlined'} disabled>进入测试房间</Button>
+                        <Button variant={'outlined'} onClick={()=>{
+                            window.open(this.roomUrl()+'&test_mode=true', 'test room', 'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600')
+                        }}>进入测试房间</Button>
                         <Button variant={'outlined'} onClick={()=>{
                             iojson.exportJSON(localStorage, 'filename')
                         }}>导出配置</Button>
