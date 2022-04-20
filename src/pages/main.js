@@ -1,14 +1,17 @@
 import react from "react";
 import {MainContext,GlobalContext} from "../global/context";
-import { useNavigate } from "react-router-dom";
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import {Routes,Route,useNavigate} from "react-router-dom";
+import {SnackbarProvider,useSnackbar} from 'notistack';
 import {useCookies} from 'react-cookie';
 import {Container, Box, Button, IconButton} from "@mui/material";
-import {Menu as MenuIcon,Close} from "@mui/icons-material";
+import {Menu as MenuIcon, Close, Home, ImagesearchRoller, LocalAtm} from "@mui/icons-material";
 
 import './main.css';
+import Suspense from "../components/elements/Suspense";
 import Menu from "../components/menu";
-import React from "react";
+
+const NotFound = react.lazy(()=>import('./NotFound'))
+const RoomGen = react.lazy(()=>import('./room-gen'))
 
 export default function Main(props){
   const noticeStackRef = react.createRef();
@@ -68,7 +71,12 @@ class MainApp extends react.Component {
   constructor(props) {
     super(props);
     this.state={
-      showMenu: false
+      showMenu: false,
+      menu: [
+        {name:'首页',path:'/',icon:<Home/>,element:<RoomGen/>},
+        {name:"样式生成器",path:"/style-generator",icon:<ImagesearchRoller/>,element:null},
+        {name:"打赏记录",path:"https://link.bilibili.com/ctool/vtuber/",icon:<LocalAtm/>,element:null},
+      ]
     }
 
     this.handleMenuButtonClick = this.handleMenuButtonClick.bind(this);
@@ -81,7 +89,7 @@ class MainApp extends react.Component {
         id="container"
     >
       <Menu
-          els={this.props.menu}
+          els={this.state.menu}
           unShow={()=>{this.setState({showMenu: false})}}
           className={this.state.showMenu?"show":null}
       >
@@ -97,7 +105,13 @@ class MainApp extends react.Component {
         id="content"
       >
         <MenuButton onClick={this.handleMenuButtonClick}><MenuIcon/></MenuButton>
-        {this.props.children}
+        <Routes>
+          {this.state.menu.map(e=>{
+            if(e.path.indexOf('/')!==0)return null;
+            return <Route key={e.name} path={e.path} element={<Suspense el={e.element}/>}/>
+          })}
+          <Route path="*" element={<Suspense el={<NotFound/>}/>} />
+        </Routes>
       </Container>
     </Box>
   }
