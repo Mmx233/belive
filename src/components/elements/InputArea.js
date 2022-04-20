@@ -9,9 +9,10 @@ export default class InputArea extends react.Component {
             flexShrink={1}
             sx={this.props.sx}
         >
-            {this.props.data.map((s,i)=>{
+            {Object.keys(this.props.data).map(key=>{
+                let el=this.props.data[key]
                 return <Grid
-                    key={s.key}
+                    key={key}
                     item xs={12} sm={6}
                     sx={{
                         '& .MuiTextField-root': {
@@ -22,10 +23,10 @@ export default class InputArea extends react.Component {
                     }}
                 >
                     <TextField
-                        {...s}
-                        onChange={(e)=>this.props.handleChange(i,e.target.value)}
+                        {...el}
+                        onChange={(e)=>this.props.handleChange(key,e.target.value)}
                     >
-                        {s.selection?s.selection.map((o)=>{
+                        {el.selection?el.selection.map((o)=>{
                             return <MenuItem key={o.label} value={o.value}>
                                 {o.label}
                             </MenuItem>

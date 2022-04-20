@@ -11,7 +11,7 @@ import GeneralForm from "../components/RoomGen/GeneralForm";
 import ForbidForm from "../components/RoomGen/ForbidForm";
 import TestForm from "../components/RoomGen/TestForm";
 
-import {General,Forbid,Test} from '../components/RoomGen/form.json';
+import {Range,General,Forbid,Test} from '../components/RoomGen/form.json';
 
 export default class RoomGen extends react.Component {
     constructor(props) {
@@ -23,55 +23,46 @@ export default class RoomGen extends react.Component {
         this.state.Test= Test
 
         //恢复表单记录
-        for(let k in this.state){
-            for(let e in this.state[k]) {
-                for(let i=0;i<this.state[k][e].length;i++) {
-                    let v = localStorage.getItem(`${k}_${e}_${this.state[k][e][i].key}`);
-                    if(v){
-                        switch (typeof this.state[k][e][i].value) {
-                            case "boolean":
-                                this.state[k][e][i].value=v==='true';
-                                break;
-                            case "number":
-                                this.state[k][e][i].value=v*1;
-                                break;
-                            default:
-                                this.state[k][e][i].value=v;
-                                break;
-                        }
-                    }
+        Range(this.state,(space,name,key,el)=>{
+            let v = localStorage.getItem(`${space}_${name}_${key}`);
+            if(v){
+                switch (typeof el.value) {
+                    case "boolean":
+                        v=v==='true';
+                        break;
+                    case "number":
+                        v=v*1;
+                        break;
+                    default:
+                        break;
                 }
+                el.value=v
             }
-        }
+        })
 
         this.handleChange = this.handleChange.bind(this);
         this.handleProps = this.handleProps.bind(this);
         this.roomUrl = this.roomUrl.bind(this);
     }
-    handleChange(space,name,index,value) {
+    handleChange(space,name,key,value) {
         let data=this.state[space];
-        data[name][index].value=value;
+        data[name][key].value=value;
         this.setState({[space]:data});
-        localStorage.setItem(`${space}_${name}_${data[name][index].key}`,String(value));
+        localStorage.setItem(`${space}_${name}_${key}`,String(value));
     }
     handleProps(space){
         return {
             data: this.state[space],
-            handleChange:(name,index,value)=>{
-                this.handleChange(space,name,index,value);
+            handleChange:(name,key,value)=>{
+                this.handleChange(space,name,key,value);
             }
         }
     }
     roomUrl(){
         let query=[];
-        for(let k in this.state){
-            for(let e in this.state[k]) {
-                for(let i=0;i<this.state[k][e].length;i++) {
-                    let v=this.state[k][e][i]
-                    query.push(`${v.key}=${encodeURI(v.value)}`);
-                }
-            }
-        }
+        Range(this.state,(space,name,key,el)=>{
+            query.push(`${key}=${encodeURI(el.value)}`);
+        })
         return document.location.origin+'/room?'+query.join('&');
     }
     render(){

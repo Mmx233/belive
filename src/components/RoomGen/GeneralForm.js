@@ -20,12 +20,12 @@ export default class GeneralForm extends react.Component {
     render(){
         return <react.Fragment>
             <TextField
-                {...this.props.data.main[0]}
+                {...this.props.data.main.id}
                 onChange={(e)=>{
                     if(!(e.target.value*1>0)){
                         return
                     }
-                    this.props.handleChange("main",0,e.target.value*1)
+                    this.props.handleChange("main","id",e.target.value*1)
                 }}
                 fullWidth
                 sx={{

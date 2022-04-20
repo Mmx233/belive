@@ -11,20 +11,21 @@ export default class SliderArea extends react.Component {
             flexShrink={1}
             sx={this.props.sx}
         >
-            {this.props.data.map((s,i)=>{
-                return <Grid key={s.label} item xs={12}>
+            {Object.keys(this.props.data).map(key=>{
+                let el=this.props.data[key]
+                return <Grid key={key} item xs={12}>
                     <Slider
-                        {...s}
+                        {...el}
                         onChange={(e)=>{
                             let v=e.target.value;
                             v=Math.abs(v*1)
-                            if(s.max){
-                                v=Math.min(v,s.max)
+                            if(el.max){
+                                v=Math.min(v,el.max)
                             }
-                            if(s.min){
-                                v=Math.max(v,s.min)
+                            if(el.min){
+                                v=Math.max(v,el.min)
                             }
-                            this.props.handleChange(i,v)
+                            this.props.handleChange(key,v)
                         }}
                     />
                 </Grid>

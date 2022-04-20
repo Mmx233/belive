@@ -10,12 +10,13 @@ export default class SwitchArea extends react.Component {
             flexShrink={1}
             sx={this.props.sx}
         >
-            {this.props.data.map((s,i)=>{
-                return <Grid key={s.label} item xs={12} sm={6} md={4}>
+            {Object.keys(this.props.data).map(key=>{
+                let el=this.props.data[key]
+                return <Grid key={key} item xs={12} sm={6} md={4}>
                     <Switch
-                        {...s}
-                        checked={s.value}
-                        onChange={(e,v)=>this.props.handleChange(i,v)}
+                        {...el}
+                        checked={el.value}
+                        onChange={(e,v)=>this.props.handleChange(key,v)}
                     />
                 </Grid>
             })}

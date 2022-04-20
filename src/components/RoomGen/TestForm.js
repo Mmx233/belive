@@ -12,13 +12,13 @@ export default class TestForm extends react.Component {
             >
                 <Grid item xs={12}>
                     <Typography gutterBottom>
-                        {`发送间隔（${this.props.data.sliders[0].value}~${this.props.data.sliders[1].value} ms）`}
+                        {`发送间隔（${this.props.data.sliders.min_test_danmaku_interval.value}~${this.props.data.sliders.max_test_danmaku_interval.value} ms）`}
                     </Typography>
                     <SliderUI
-                        value={[this.props.data.sliders[0].value,this.props.data.sliders[1].value]}
+                        value={[this.props.data.sliders.min_test_danmaku_interval.value,this.props.data.sliders.max_test_danmaku_interval.value]}
                         onChange={(e)=>{
-                            this.props.handleChange("sliders",0,e.target.value[0])
-                            this.props.handleChange("sliders",1,e.target.value[1])
+                            this.props.handleChange("sliders","min_test_danmaku_interval",e.target.value[0])
+                            this.props.handleChange("sliders","max_test_danmaku_interval",e.target.value[1])
                         }}
                         valueLabelDisplay="auto"
                         max={5000}
