@@ -1,7 +1,7 @@
 import react from "react";
 import {Box, Tab} from "@mui/material";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
-import {GlobalContext} from "../../global/context";
+import {MainContext} from "../../global/context";
 
 export default class Tabs extends react.Component {
     constructor(props) {
@@ -55,4 +55,4 @@ export default class Tabs extends react.Component {
     }
 }
 
-Tabs.contextType = GlobalContext;
+Tabs.contextType = MainContext

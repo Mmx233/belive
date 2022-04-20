@@ -2,7 +2,7 @@ import react from 'react';
 import {Box,Typography,List,ListItemButton,ListItemIcon,ListItemText} from "@mui/material";
 import './menu.css';
 
-import {GlobalContext} from "../global/context";
+import {MainContext} from "../global/context";
 
 export default class Menu extends react.Component {
     handleNavClick(target) {
@@ -61,4 +61,4 @@ export default class Menu extends react.Component {
     }
 }
 
-Menu.contextType = GlobalContext
+Menu.contextType = MainContext

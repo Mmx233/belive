@@ -1,9 +1,51 @@
 import react from "react";
-import {Container,Box,Button} from "@mui/material";
+import {MainContext,GlobalContext} from "../global/context";
+import { useNavigate } from "react-router-dom";
+import { SnackbarProvider, useSnackbar } from 'notistack';
+import {useCookies} from 'react-cookie';
+import {Container, Box, Button, IconButton} from "@mui/material";
 import {Menu as MenuIcon,Close} from "@mui/icons-material";
 
 import './main.css';
 import Menu from "../components/menu";
+import React from "react";
+
+export default function Main(props){
+  const noticeStackRef = react.createRef();
+  const onClickDismiss = key => () => {
+    noticeStackRef.current.closeSnackbar(key);
+  }
+  return <SnackbarProvider
+      ref={noticeStackRef}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      action={(key) => (
+          <IconButton onClick={onClickDismiss(key)}>
+            <Close sx={{color:'white'}} fontSize={"small"}/>
+          </IconButton>
+      )}
+  >
+    <MainWithContext {...props}/>
+  </SnackbarProvider>
+}
+
+function MainWithContext(props) {
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const MC = {
+    Alert:useSnackbar().enqueueSnackbar,
+    Nav: useNavigate(),
+    cookies,
+    setCookie,
+    removeCookie,
+  }
+  return <GlobalContext.Consumer>
+    {(context)=><MainContext.Provider value={Object.assign(context,MC)}>
+      <MainApp {...props}/>
+    </MainContext.Provider>}
+  </GlobalContext.Consumer>
+}
 
 class MenuButton extends react.Component {
   render(){
@@ -22,7 +64,7 @@ class MenuButton extends react.Component {
   }
 }
 
-export default class Main extends react.Component {
+class MainApp extends react.Component {
   constructor(props) {
     super(props);
     this.state={

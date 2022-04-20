@@ -1,11 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter,Routes,Route,useNavigate,useSearchParams } from "react-router-dom";
-import {useCookies} from 'react-cookie';
-import { SnackbarProvider, useSnackbar } from 'notistack';
-import {IconButton} from "@mui/material";
+import { BrowserRouter,Routes,Route,useSearchParams } from "react-router-dom";
 import {ThemeProvider,createTheme} from '@mui/material/styles';
-import {Home,ImagesearchRoller,LocalAtm,Close} from "@mui/icons-material";
+import {Home,ImagesearchRoller,LocalAtm} from "@mui/icons-material";
 import {GlobalContext} from "./global/context";
 
 import './index.css';
@@ -22,9 +19,7 @@ function NavApp() {
         {name:"样式生成器",path:"/style-generator",icon:<ImagesearchRoller/>,element:null},
         {name:"打赏记录",path:"https://link.bilibili.com/ctool/vtuber/",icon:<LocalAtm/>,element:null},
     ]
-    const [cookies, setCookie, removeCookie] = useCookies();
-    const { enqueueSnackbar } = useSnackbar();
-    let [searchParams, setSearchParams] = useSearchParams();
+    let [searchParams] = useSearchParams();
     return <ThemeProvider
         theme={createTheme({
             palette: {
@@ -35,14 +30,7 @@ function NavApp() {
             },
         })}
     ><GlobalContext.Provider value={{
-        Nav: useNavigate(),
-        Params:useSearchParams(),
-        Alert:enqueueSnackbar,
-        cookies,
-        setCookie,
-        removeCookie,
         searchParams,
-        setSearchParams,
     }}>
         <Routes>
             <Route path="/room" element={<Suspense el={<Room/>}/>}/>
@@ -64,28 +52,10 @@ function NavApp() {
     </ThemeProvider>
 }
 
-const noticeStackRef = React.createRef();
-const onClickDismiss = key => () => {
-    noticeStackRef.current.closeSnackbar(key);
-}
-
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
       <BrowserRouter>
-          <SnackbarProvider
-              ref={noticeStackRef}
-              anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-              }}
-              action={(key) => (
-                  <IconButton onClick={onClickDismiss(key)}>
-                      <Close sx={{color:'white'}} fontSize={"small"}/>
-                  </IconButton>
-              )}
-          >
-              <NavApp/>
-          </SnackbarProvider>
+          <NavApp/>
       </BrowserRouter>
   </React.StrictMode>
 );

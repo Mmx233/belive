@@ -2,8 +2,7 @@ import react from 'react';
 import iojson from 'iojson'
 import {Box,TextField,Button,Tooltip,Stack} from '@mui/material'
 import {ContentCopy} from "@mui/icons-material";
-
-import {GlobalContext} from "../global/context";
+import {MainContext} from "../global/context";
 
 import Block from '../components/elements/block';
 import Tabs from "../components/elements/tabs";
@@ -159,4 +158,4 @@ export default class RoomGen extends react.Component {
     }
 }
 
-RoomGen.contextType = GlobalContext;
+RoomGen.contextType = MainContext;
