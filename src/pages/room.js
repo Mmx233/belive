@@ -2,13 +2,17 @@ import react from "react";
 import {GlobalContext} from "../global/context";
 import {Container} from "@mui/material";
 
-import {General,Forbid,Test} from '../components/RoomGen/form.json'
+import {Range,General,Forbid,Test} from '../components/RoomGen/form.json'
 
 export default class Room extends react.Component {
     constructor(props) {
         super(props);
         this.state={
-            loading:true
+            Options:{
+                General,
+                Forbid,
+                Test
+            }
         }
     }
     componentDidMount() {
@@ -18,31 +22,21 @@ export default class Room extends react.Component {
                 TestMode:Boolean(this.context.searchParams.get('test_mode')),
             }
         })
-        let forms={
-            General,
-            Forbid,
-            Test
-        }
-        let Options={}
-        for(let k in forms){
-            for(let a in forms[k]){
-                for(let i=0;i<forms[k][a].length;i++){
-                    let key=forms[k][a][i].key
-                    let q=this.context.searchParams.get(key)
-                    if(q!==null){
-                        switch (typeof forms[k][a][i].value){
-                            case 'number':
-                                q=q*1
-                                if(isNaN(q))continue
-                                break
-                            default:
-                                break
-                        }
-                        Options[key]=q
-                    }
+        let Options=this.state.Options
+        Range(Options,(space,name,key,el)=>{
+            let q=this.context.searchParams.get(key)
+            if(q!==null){
+                switch (typeof el.value){
+                    case 'number':
+                        q=q*1
+                        if(isNaN(q))return
+                        break
+                    default:
+                        break
                 }
+                el.value=q
             }
-        }
+        })
         this.setState({Options})
 
         this.setState({loading:false})
