@@ -1,5 +1,6 @@
 import react from "react";
 import {GlobalContext} from "../global/context";
+import {Container} from "@mui/material";
 
 import {General,Forbid,Test} from '../components/RoomGen/form.json'
 
@@ -7,7 +8,7 @@ export default class Room extends react.Component {
     constructor(props) {
         super(props);
         this.state={
-
+            loading:true
         }
     }
     componentDidMount() {
@@ -43,9 +44,13 @@ export default class Room extends react.Component {
             }
         }
         this.setState({Options})
+
+        this.setState({loading:false})
     }
     render(){
-        return <div/>
+        return <Container>
+            123
+        </Container>
     }
 }
 
