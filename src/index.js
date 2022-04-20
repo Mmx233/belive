@@ -9,10 +9,12 @@ import {Home,ImagesearchRoller,LocalAtm,Close} from "@mui/icons-material";
 import {GlobalContext} from "./global/context";
 
 import './index.css';
-import Main from './pages/main';
-import RoomGen from "./pages/room-gen";
-import Room from "./pages/room";
-import NotFound from "./pages/NotFound";
+import Suspense from "./components/elements/Suspense";
+
+const Main = React.lazy(()=>import('./pages/main'))
+const RoomGen = React.lazy(()=>import('./pages/room-gen'))
+const Room = React.lazy(()=>import('./pages/room'))
+const NotFound = React.lazy(()=>import('./pages/NotFound'))
 
 function NavApp() {
     const els = [
@@ -43,16 +45,20 @@ function NavApp() {
         setSearchParams,
     }}>
         <Routes>
-            <Route path="/room" element={<Room/>}/>
-            <Route path="*" element={<Main menu={els}>
-                <Routes>
-                    {els.map(e=>{
-                        if(e.path.indexOf('/')!==0)return null;
-                        return <Route key={e.name} path={e.path} element={e.element}/>
-                    })}
-                    <Route path="*" element={<NotFound/>} />
-                </Routes>
-            </Main>}/>
+            <Route path="/room" element={<Suspense el={<Room/>}/>}/>
+            <Route path="*" element={<Suspense
+                el={
+                    <Main menu={els}>
+                        <Routes>
+                            {els.map(e=>{
+                                if(e.path.indexOf('/')!==0)return null;
+                                return <Route key={e.name} path={e.path} element={<Suspense el={e.element}/>}/>
+                            })}
+                            <Route path="*" element={<Suspense el={<NotFound/>}/>} />
+                        </Routes>
+                    </Main>
+                }
+            />}/>
         </Routes>
     </GlobalContext.Provider>
     </ThemeProvider>
