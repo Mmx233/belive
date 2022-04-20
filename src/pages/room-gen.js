@@ -135,7 +135,9 @@ export default class RoomGen extends react.Component {
                             }
                         }}
                     >
-                        <Button variant={'contained'} disabled>进入B站直播间</Button>
+                        <Button variant={'contained'} onClick={()=>{
+                            window.open(`https://live.bilibili.com/${this.state.General.main[0].value}`,'_blank')
+                        }}>进入B站直播间</Button>
                         <Button variant={'contained'} onClick={()=>{
                             window.open(this.roomUrl(), 'room', 'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600')
                         }}>进入房间</Button>
