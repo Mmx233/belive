@@ -12,7 +12,7 @@ export default class TestForm extends react.Component {
             >
                 <Grid item xs={12}>
                     <Typography gutterBottom>
-                        {"发送间隔（ms）"}
+                        {`发送间隔（${this.props.data.sliders[0].value}~${this.props.data.sliders[1].value} ms）`}
                     </Typography>
                     <SliderUI
                         value={[this.props.data.sliders[0].value,this.props.data.sliders[1].value]}
