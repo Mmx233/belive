@@ -10,9 +10,6 @@ export default class ForbidForm extends react.Component {
             <SwitchArea
                 data={this.props.data.switches}
                 handleChange={(index,value)=>{this.props.handleChange("switches",index,value);}}
-                sx={{
-                    marginTop: "0!important",
-                }}
             />
             <SliderArea
                 data={this.props.data.sliders}

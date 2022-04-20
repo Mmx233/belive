@@ -28,6 +28,9 @@ export default class GeneralForm extends react.Component {
                     this.props.handleChange("main",0,e.target.value*1)
                 }}
                 fullWidth
+                sx={{
+                    marginTop:'1.5em'
+                }}
             />
 
             <SwitchArea

@@ -43,8 +43,11 @@ export default class Tabs extends react.Component {
                     value={String(i)}
                     sx={{
                         "&>*":{
-                            margin:'0.5rem auto!important',
+                            marginBottom:'2rem',
                         },
+                        "&>:last-child":{
+                            marginBottom:'unset'
+                        }
                     }}
                 >{item.el}</TabPanel>
             })}
