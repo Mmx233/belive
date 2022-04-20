@@ -29,7 +29,7 @@ export default class GeneralForm extends react.Component {
                 }}
                 fullWidth
                 sx={{
-                    marginTop:'1.5em'
+                    marginTop:'0.5em'
                 }}
             />
 
