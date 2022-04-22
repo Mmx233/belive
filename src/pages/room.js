@@ -9,9 +9,7 @@ export default class Room extends react.Component {
     constructor(props) {
         super(props);
         this.state={
-            name:Math.random(),//demo
             loading:true,
-            OnUnmount:false,
             connecting:false,
             conn: null,
             Options:{
@@ -37,29 +35,30 @@ export default class Room extends react.Component {
                     Msg:info[1],
                     IsEmoji:info[0][12]===1,
                 }
-                console.log(danma)
+                console.log(danma)//demo
                 break
             default:
                 break
         }
     }
     ConnectDanmaku() {
-        if(this.state.connecting||(this.state.conn&&!this.state.conn.closed)) {
-           return
-        }else {
-            this.setState({connecting:true})
-        }
-
+        if(this.state.connecting||this.state.conn) return
+        this.setState({connecting:true})
         let conn=ConnectDanmaku(this.state.Options.General.main.id.value)
-        conn.on('open',()=>{
+        conn.on('live',()=>{
+            if(this.state.conn) {
+                conn.close()
+                return
+            }
             this.setState({
                 conn:conn,
                 connecting:false
             })
         })
+        conn.on('error',this.ConnectDanmaku)
         conn.on('close',()=>{
-            if(this.state.OnUnmount) return;
-            setTimeout(this.ConnectDanmaku,1000)
+            this.setState({conn:null})
+            this.ConnectDanmaku()
         })
         conn.on('msg',this.OnMsg)
     }
@@ -70,7 +69,6 @@ export default class Room extends react.Component {
                 TestMode:Boolean(this.context.searchParams.get('test_mode')),
             }
         })
-        console.log(this.state.name,'mount')//demo
         let Options=this.state.Options
         Range(Options,(space,name,key,el)=>{
             let q=this.context.searchParams.get(key)
@@ -88,19 +86,16 @@ export default class Room extends react.Component {
         })
         this.setState({Options})
 
+        this.setState({loading:false})
+
         //danmaku连接
         this.ConnectDanmaku()
-
-        this.setState({loading:false})
     }
     componentWillUnmount() {
-        this.setState({
-            OnUnmount:true,
-        })
         if(this.state.conn) {
+            this.state.conn.on('close',null)
             this.state.conn.close()
         }
-        console.log(this.state.name,'unmount')//demo
     }
     render(){
         return <Container>
