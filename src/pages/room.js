@@ -1,9 +1,11 @@
 import react from "react";
 import {GlobalContext} from "../global/context";
-import {Container} from "@mui/material";
+import {Container,Box} from "@mui/material";
+
+import TextMsg from "../components/elements/room/TextMsg";
 
 import {Range,General,Forbid,Test} from '../components/RoomGen/form.json'
-import {ConnectDanmaku,AvatarUrl} from "../modules/bilibili/live";
+import {ConnectDanmaku} from "../modules/bilibili/live";
 
 export default class Room extends react.Component {
     constructor(props) {
@@ -17,42 +19,69 @@ export default class Room extends react.Component {
                 Forbid,
                 Test
             },
+            Danmaku:[],
+            TopBar:[],
         }
 
         this.ConnectDanmaku = this.ConnectDanmaku.bind(this)
         this.OnMsg = this.OnMsg.bind(this)
+        this.DanmakuDisplay = this.DanmakuDisplay.bind(this)
     }
     OnMsg(data){
+        let danma
+        let info = data.info
         switch (data.cmd) {
             case 'DANMU_MSG':
-                let info = data.info
-                console.log(info) //demo
-                let danma = {
+                danma = {
                     User: {
                         ID: info[2][0],
                         Name:info[2][1],
                     },
+                    Medal:info[3],
                     Msg:info[1],
                     IsEmoji:info[0][12]===1,
                 }
-                console.log(danma)//demo
                 break
             default:
-                break
+                return
         }
+        danma.Type=data.cmd
+        danma.raw=data
+        danma.ID = info[9]['ct']
+        console.log(danma)//demo
+
+        let Danmaku = this.state.Danmaku
+        Danmaku.push(danma)
+        let diff = Danmaku.length-this.state.Options.General.inputs.max_danmaku_num
+        if(diff>0){
+            Danmaku=Danmaku.splice(0,diff)
+        }
+        this.setState({Danmaku})
+    }
+    DanmakuDisplay(){
+        return this.state.Danmaku.map((danma)=>{
+            switch (danma.Type) {
+                case 'DANMU_MSG':
+                    return <TextMsg key={danma.ID} danma={danma}/>
+                default:
+                    return null
+            }
+        })
     }
     ConnectDanmaku() {
         if(this.state.connecting||this.state.conn) return
         this.setState({connecting:true})
         let conn=ConnectDanmaku(this.state.Options.General.main.id.value)
         conn.on('live',()=>{
-            if(this.state.conn) {
-                conn.close()
-                return
-            }
-            this.setState({
-                conn:conn,
-                connecting:false
+            this.setState(()=>{
+                if(this.state.conn) {
+                    conn.close()
+                    return
+                }
+                return {
+                    conn:conn,
+                    connecting:false
+                }
             })
         })
         conn.on('error',this.ConnectDanmaku)
@@ -63,7 +92,6 @@ export default class Room extends react.Component {
         conn.on('msg',this.OnMsg)
     }
     componentDidMount() {
-        //载入选项
         this.setState({
             Settings: {
                 TestMode:Boolean(this.context.searchParams.get('test_mode')),
@@ -98,8 +126,27 @@ export default class Room extends react.Component {
         }
     }
     render(){
-        return <Container>
+        return <Container
+            id={"container"}
+            sx={{
+                height: '100%',
+                overflow: 'hidden',
+            }}
+        >
+            {this.state.TopBar.length!==0?<Box
+                id={"sc-items"}
+            >
 
+            </Box>:null}
+            <Box
+                id={"chat-items"}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}
+            >
+                {this.DanmakuDisplay()}
+            </Box>
         </Container>
     }
 }

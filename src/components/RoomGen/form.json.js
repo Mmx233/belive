@@ -18,9 +18,9 @@ export let General={
         id: {label: "房间ID", value: 1, min: 1},
     },
     switches: {
-        show_danmaku:{disabled: true,label: "显示消息弹幕", value: false},
-        show_super_chat:{disabled: true,label: "显示醒目留言(SC)", value: false},
-        show_new_member:{disabled: true,label: "显示新舰长", value: false},
+        show_danmaku:{label: "显示消息弹幕", value: true},
+        show_super_chat:{disabled: true,label: "显示醒目留言(SC)", value: true},
+        show_new_member:{disabled: true,label: "显示新舰长", value: true},
         show_gift:{disabled: true,label: "显示礼物", value: false},
         show_gift_info:{disabled: true,label: "显示礼物信息", value: false},
         danmaku_at_bottom:{disabled: true,label: "弹幕居下", value: false},
@@ -33,7 +33,7 @@ export let General={
         translation_sign:{disabled: true,label: "翻译弹幕首字符", value: "【"},
         min_gift_price:{disabled: true,label: "打赏弹幕最低显示价格(元)", value: 0,type:"number",inputProps:{min:0}},
         min_ticker_price:{disabled: true,label: "打赏停驻栏最低显示价格(元)", value: 0.1,type:"number",inputProps:{min:0,step:0.1}},
-        max_danmaku_num:{disabled: true,label: "最大弹幕数", value: 0,type:"number",inputProps:{min:0}},
+        max_danmaku_num:{label: "最大弹幕数", value: 30,type:"number",inputProps:{min:0}},
         danmaku_fade_num:{disabled: true,label: "预留淡出弹幕数", value: 3,type:"number",inputProps:{min:0}},
         danmaku_pin_time:{disabled: true,label: "弹幕停留时长(为0时持续停留)", value: 0,type:"number",inputProps:{min:0}},
         image_show_type:{disabled: true,label: "图片插入方式", value: "0",select:true,selection:[
