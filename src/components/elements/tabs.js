@@ -22,7 +22,7 @@ export default class Tabs extends react.Component {
     }
     handleSelect(e,v){
         this.setState({selected:v})
-        this.context.searchParams.set({tab:this.props.menu[v].name})
+        this.context.setSearchParams({tab:this.props.menu[v].name})
     }
     render(){
         return <TabContext value={String(this.state.selected)}>

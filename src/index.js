@@ -11,7 +11,7 @@ const Main = React.lazy(()=>import('./pages/main'))
 const Room = React.lazy(()=>import('./pages/room'))
 
 function NavApp() {
-    let [searchParams] = useSearchParams();
+    let [searchParams,setSearchParams] = useSearchParams();
     return <ThemeProvider
         theme={createTheme({
             palette: {
@@ -23,6 +23,7 @@ function NavApp() {
         })}
     ><GlobalContext.Provider value={{
         searchParams,
+        setSearchParams
     }}>
         <Routes>
             <Route path="/room" element={<Suspense el={<Room/>}/>}/>
