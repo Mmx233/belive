@@ -1,8 +1,8 @@
 import {Get} from "./base";
 
-export function Avatar(uid) {
+export function AvatarUrl(uid) {
     return Get({
-        url: `/api/user/avatar/`,
+        url: `user/avatar`,
         params: {
             uid
         }

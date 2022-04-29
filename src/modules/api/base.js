@@ -1,14 +1,13 @@
 import axios from 'axios'
 
-export const Addr = 'http://127.0.0.1'
+export const Addr = 'http://127.0.0.1/api/'
 
 export function Do(conf){
     return axios({
         method: conf.method,
-        url: `${Addr}/`+conf.url,
+        url: `${Addr}`+conf.url,
         params: conf.params,
-        data: conf.data,
-        withCredentials: true
+        data: conf.data
     })
 }
 

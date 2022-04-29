@@ -114,13 +114,23 @@ export default class Room extends react.Component {
         })
         this.setState({Options})
 
-        this.setState({loading:false})
-
+        let testMode=this.context.searchParams.get('test_mode')==='true'
+        this.setState({loading:false,testMode})
         //danmaku连接
-        this.ConnectDanmaku()
+        if(testMode) {
+            //todo
+        }else {
+            if(document.readyState==='complete') {
+                this.ConnectDanmaku()
+            }else {
+                window.addEventListener('load',this.ConnectDanmaku)
+            }
+        }
     }
     componentWillUnmount() {
-        if(this.state.conn) {
+        if(this.state.testMode) {
+            //todo
+        }else if(this.state.conn) {
             this.state.conn.on('close',null)
             this.state.conn.close()
         }
