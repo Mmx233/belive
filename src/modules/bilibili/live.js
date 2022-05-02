@@ -1,5 +1,4 @@
 import {LiveWS} from 'bilibili-live-ws';
-import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 import {AvatarUrl as Avatar} from "../api/user";
@@ -10,8 +9,8 @@ export function ConnectDanmaku(room_id) {
 
 export async function AvatarUrl(uid){
     const cookies = new Cookies();
-    if(cookies.get[`avatar-${uid}`]!==undefined) {
-        return cookies[`avatar-${uid}`]
+    if(cookies.getAll()[`avatar-${uid}`]!==undefined) {
+        return cookies.getAll()[`avatar-${uid}`]
     }
     try {
         const res=await Avatar(uid);
