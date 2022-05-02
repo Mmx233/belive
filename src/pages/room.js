@@ -15,17 +15,14 @@ export default class Room extends react.Component {
             tester:null,
             loading:true,
             connecting:false,
-            showing:false,
             conn: null,
             Options:{
                 General,
                 Forbid,
                 Test
             },
-            prevShouldScroll:false,
-            scrolling:false,
+            scrolled:false,
             Danmaku:[],
-            DanmakuBuff:[],
             TopBar:[],
         }
 
@@ -34,16 +31,11 @@ export default class Room extends react.Component {
         this.OnMsg = this.OnMsg.bind(this)
         this.DanmakuDisplay = this.DanmakuDisplay.bind(this)
     }
-    shouldScroll() {
+    onBottom() {
         let el=document.getElementById('container')
-        return el.scrollHeight - el.scrollTop - el.clientHeight !== 0
+        return el.scrollHeight - el.scrollTop - el.clientHeight === 0
     }
     OnMsg(data){
-        if(this.state.showing) {
-            this.state.DanmakuBuff.push(data)
-            return;
-        }
-        this.setState({showing:true})
         console.log(data)//demo
         let danma
         let info = data.info
@@ -68,18 +60,12 @@ export default class Room extends react.Component {
         //console.log(danma)//demo
 
         let Danmaku = this.state.Danmaku
-        Danmaku=Danmaku.concat(this.state.DanmakuBuff)
         Danmaku.push(danma)
         let diff = Danmaku.length-this.state.Options.General.inputs.max_danmaku_num.value
         if(diff>0){
             Danmaku=Danmaku.splice(diff,Danmaku.length)
         }
-        let scroll = this.shouldScroll()
-        this.setState(()=>({
-            Danmaku,
-            DanmakuBuff:[],
-            prevShouldScroll:scroll,
-        }))
+        this.setState({Danmaku})
     }
     ConnectDanmaku() {
         if(this.state.connecting||this.state.conn) return
@@ -125,11 +111,11 @@ export default class Room extends react.Component {
         })
     }
     componentDidMount() {
-        document.getElementById('container').addEventListener('scroll',()=>{
-            if(this.state.scrolling&&this.state.showing&&!this.shouldScroll()){
-                this.setState({showing:false,scrolling:false})
+        new MutationObserver(()=>{
+            if(!this.state.scrolled) {
+                document.getElementById('bottom').scrollIntoView({behavior:'smooth',block:'end'})
             }
-        })
+        }).observe(document.getElementById('chat-items'),{childList:true})
         this.setState({
             Settings: {
                 TestMode:Boolean(this.context.searchParams.get('test_mode')),
@@ -173,15 +159,6 @@ export default class Room extends react.Component {
         }else if(this.state.conn) {
             this.state.conn.on('close',null)
             this.state.conn.close()
-        }
-    }
-    componentDidUpdate(prevProps,prevState) {
-        if(prevState.Danmaku.length!==this.state.Danmaku.length&&this.state.showing) {
-            if(!this.state.prevShouldScroll&&this.shouldScroll()) {
-                setTimeout(()=>{document.getElementById('bottom').scrollIntoView({behavior: 'smooth',block:'end'});setTimeout(()=>{this.setState({scrolling:true})},30)},30)
-            }  else {
-                this.setState({showing:false});
-            }
         }
     }
     render(){
