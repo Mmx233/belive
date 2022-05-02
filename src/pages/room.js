@@ -33,7 +33,7 @@ export default class Room extends react.Component {
     }
     onBottom() {
         let el=document.getElementById('container')
-        return el.scrollHeight - el.scrollTop - el.clientHeight === 0
+        return el.scrollHeight - el.scrollTop - el.clientHeight < 50
     }
     OnMsg(data){
         console.log(data)//demo
@@ -113,9 +113,14 @@ export default class Room extends react.Component {
     componentDidMount() {
         new MutationObserver(()=>{
             if(!this.state.scrolled) {
+                /*let el=document.getElementById('container')
+                el.scrollTop=el.scrollHeight*/
                 document.getElementById('bottom').scrollIntoView({behavior:'smooth',block:'end'})
             }
         }).observe(document.getElementById('chat-items'),{childList:true})
+        window.addEventListener('wheel',(e)=>{
+            this.setState({scrolled:!this.onBottom()})
+        })
         this.setState({
             Settings: {
                 TestMode:Boolean(this.context.searchParams.get('test_mode')),
