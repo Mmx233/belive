@@ -23,9 +23,23 @@ export default class TextMsg extends react.Component {
             sx={{
                 display: 'flex',
                 maxWidth: '100%',
+                height: '3rem',
+                "&>.img":{
+                    width: '3rem',
+                    height: '3rem',
+                },
+                marginBottom: '1rem',
             }}
         >
-            <Box>
+            <Box className={"img"} sx={{
+                padding: '0.2rem',
+                boxSizing: 'border-box',
+                "& > img": {
+                    width: 'auto',
+                    height: '100%',
+                    borderRadius: '50%',
+                }
+            }}>
                 <img src={this.state.avatar} alt={"头像"} referrerPolicy={"no-referrer"}/>
             </Box>
             <Box>
