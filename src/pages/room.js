@@ -6,11 +6,13 @@ import TextMsg from "../components/elements/room/TextMsg";
 
 import {Range,General,Forbid,Test} from '../components/RoomGen/form.json'
 import {ConnectDanmaku} from "../modules/bilibili/live";
+import GenMsg, {Random} from "../modules/bilibili/genTestMsg";
 
 export default class Room extends react.Component {
     constructor(props) {
         super(props);
         this.state={
+            tester:null,
             loading:true,
             connecting:false,
             conn: null,
@@ -24,10 +26,12 @@ export default class Room extends react.Component {
         }
 
         this.ConnectDanmaku = this.ConnectDanmaku.bind(this)
+        this.ConnectTestDanmaku = this.ConnectTestDanmaku.bind(this)
         this.OnMsg = this.OnMsg.bind(this)
         this.DanmakuDisplay = this.DanmakuDisplay.bind(this)
     }
     OnMsg(data){
+        console.log(data)//demo
         let danma
         let info = data.info
         switch (data.cmd) {
@@ -48,25 +52,19 @@ export default class Room extends react.Component {
         danma.Type=data.cmd
         danma.raw=data
         danma.ID = info[9]['ct']
-        console.log(danma)//demo
+        //console.log(danma)//demo
 
         let Danmaku = this.state.Danmaku
         Danmaku.push(danma)
-        let diff = Danmaku.length-this.state.Options.General.inputs.max_danmaku_num
+        let diff = Danmaku.length-this.state.Options.General.inputs.max_danmaku_num.value
         if(diff>0){
-            Danmaku=Danmaku.splice(0,diff)
+            Danmaku=Danmaku.splice(diff,Danmaku.length)
         }
+        //let el=document.getElementById('container')
+        //let scroll = el.scrollHeight - el.scrollTop - el.clientHeight === 0
         this.setState({Danmaku})
-    }
-    DanmakuDisplay(){
-        return this.state.Danmaku.map((danma)=>{
-            switch (danma.Type) {
-                case 'DANMU_MSG':
-                    return <TextMsg key={danma.ID} danma={danma}/>
-                default:
-                    return null
-            }
-        })
+        //todo
+        //document.getElementById('bottom').scrollIntoView({behavior: 'smooth'})//if(scroll)el.scrollIntoView({behavior: 'smooth',block:'end'})
     }
     ConnectDanmaku() {
         if(this.state.connecting||this.state.conn) return
@@ -90,6 +88,26 @@ export default class Room extends react.Component {
             this.ConnectDanmaku()
         })
         conn.on('msg',this.OnMsg)
+    }
+    ConnectTestDanmaku() {
+        let sendTestMsg=()=>{
+            this.OnMsg(GenMsg())
+            this.setState({tester:setTimeout(sendTestMsg,Random(
+                    this.state.Options.Test.sliders.min_test_danmaku_interval.value,
+                    this.state.Options.Test.sliders.max_test_danmaku_interval.value
+                ))})
+        }
+        sendTestMsg()
+    }
+    DanmakuDisplay(){
+        return this.state.Danmaku.map((danma)=>{
+            switch (danma.Type) {
+                case 'DANMU_MSG':
+                    return <TextMsg key={danma.ID} danma={danma}/>
+                default:
+                    return null
+            }
+        })
     }
     componentDidMount() {
         this.setState({
@@ -117,19 +135,21 @@ export default class Room extends react.Component {
         let testMode=this.context.searchParams.get('test_mode')==='true'
         this.setState({loading:false,testMode})
         //danmaku连接
+        let f
         if(testMode) {
-            //todo
+            f=this.ConnectTestDanmaku
         }else {
-            if(document.readyState==='complete') {
-                this.ConnectDanmaku()
-            }else {
-                window.addEventListener('load',this.ConnectDanmaku)
-            }
+            f=this.ConnectDanmaku
+        }
+        if(document.readyState==='complete') {
+            f()
+        }else {
+            window.addEventListener('load',f)
         }
     }
     componentWillUnmount() {
         if(this.state.testMode) {
-            //todo
+            clearTimeout(this.state.tester)
         }else if(this.state.conn) {
             this.state.conn.on('close',null)
             this.state.conn.close()
@@ -140,7 +160,7 @@ export default class Room extends react.Component {
             id={"container"}
             sx={{
                 height: '100%',
-                overflow: 'hidden',
+                overflow: 'auto',
             }}
         >
             {this.state.TopBar.length!==0?<Box
@@ -157,6 +177,7 @@ export default class Room extends react.Component {
             >
                 {this.DanmakuDisplay()}
             </Box>
+            <div id="bottom"></div>
         </Container>
     }
 }
