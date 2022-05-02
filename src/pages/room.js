@@ -59,13 +59,16 @@ export default class Room extends react.Component {
         danma.ID = info[9]['ct']
         //console.log(danma)//demo
 
-        let Danmaku = this.state.Danmaku
-        Danmaku.push(danma)
-        let diff = Danmaku.length-this.state.Options.General.inputs.max_danmaku_num.value
-        if(diff>0){
-            Danmaku=Danmaku.splice(diff,Danmaku.length)
-        }
-        this.setState({Danmaku})
+        this.setState((state)=>{
+            let Danmaku = state.Danmaku
+            if(Danmaku.indexOf(danma)!==-1)return
+            Danmaku.push(danma)
+            let diff = Danmaku.length-this.state.Options.General.inputs.max_danmaku_num.value
+            if(diff>0){
+                Danmaku=Danmaku.splice(diff,Danmaku.length)
+            }
+            return {Danmaku}
+        })
     }
     ConnectDanmaku() {
         if(this.state.connecting||this.state.conn) return
