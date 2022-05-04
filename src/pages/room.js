@@ -41,6 +41,7 @@ export default class Room extends react.Component {
         let info = data.info
         switch (data.cmd) {
             case 'DANMU_MSG':
+                if(!this.state.Options.General.switches.show_danmaku.value) return
                 danma = {
                     User: {
                         ID: info[2][0],
@@ -116,6 +117,7 @@ export default class Room extends react.Component {
     componentDidMount() {
         new MutationObserver(()=>{
             if(!this.state.scrolled) {
+                //todo 添加开关
                 /*let el=document.getElementById('container')
                 el.scrollTop=el.scrollHeight*/
                 document.getElementById('bottom').scrollIntoView({behavior:'smooth',block:'end'})
@@ -137,6 +139,9 @@ export default class Room extends react.Component {
                     case 'number':
                         q=q*1
                         if(isNaN(q))return
+                        break
+                    case 'boolean':
+                        q=q==='true'
                         break
                     default:
                         break
