@@ -1,5 +1,6 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
+//import { createRoot } from 'react-dom/client';
 import { BrowserRouter,Routes,Route,useSearchParams } from "react-router-dom";
 import {ThemeProvider,createTheme} from '@mui/material/styles';
 import {GlobalContext} from "./global/context";
@@ -33,12 +34,13 @@ function NavApp() {
     </ThemeProvider>
 }
 
-createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-      <BrowserRouter>
-          <NavApp/>
-      </BrowserRouter>
-  </React.StrictMode>
+ReactDOM.render(
+      <React.StrictMode>
+          <BrowserRouter>
+              <NavApp/>
+          </BrowserRouter>
+      </React.StrictMode>,
+    document.getElementById('root')
 );
 
 console.log(atob('ICAgX19fX18gICAgICAgICAgICAgICAgICAKICAvICAgICBcICAgX19fX18gX19fICBfX18KIC8gIFwgLyAgXCAvICAgICBcXCAgXC8gIC8KLyAgICBZICAgIFwgIFkgWSAgXD4gICAgPCAKXF9fX198X18gIC9fX3xffCAgL19fL1xfIFwKICAgICAgICBcLyAgICAgIFwvICAgICAgXC8='))
