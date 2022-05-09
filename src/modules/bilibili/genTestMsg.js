@@ -28,7 +28,7 @@ export default function GenMsg() {
                     Math.floor(new Date().getTime()).toString(16), //msg
                     [
                         Random(326778080,326778100), //uid
-                        "Tester",
+                        "Tester", //name
                         0,
                         0,
                         0,

@@ -150,7 +150,7 @@ export default class RoomGen extends react.Component {
                         <Button variant={'outlined'} onClick={()=>{
                             localStorage.clear();
                             document.location.reload()
-                        }}>清除缓存</Button>
+                        }}>清除配置</Button>
                     </Stack>
                 </Box>
             </Block>

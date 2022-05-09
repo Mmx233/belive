@@ -1,6 +1,4 @@
 import {LiveWS} from 'bilibili-live-ws';
-import Cookies from 'universal-cookie';
-
 import {AvatarUrl as Avatar} from "../api/user";
 
 export function ConnectDanmaku(room_id) {
@@ -8,13 +6,19 @@ export function ConnectDanmaku(room_id) {
 }
 
 export async function AvatarUrl(uid){
-    const cookies = new Cookies();
-    if(cookies.getAll()[`avatar-${uid}`]!==undefined) {
-        return cookies.getAll()[`avatar-${uid}`]
+    let raw = localStorage.getItem(`avatar-${uid}`)
+    if(raw!==undefined) {
+        let data=JSON.parse(raw)
+        if(data.expire>Date.now()) {
+            return data.url
+        }
     }
     try {
         const res=await Avatar(uid);
-        cookies.set(`avatar-${uid}`,res.data.data,{maxAge:24*60*60})
+        localStorage.setItem(`avatar-${uid}`,JSON.stringify({
+            expire:Date.now()+1000*60*60*24,
+            url:res.data.data
+        }))
         return res.data.data
     } catch (err) {
         console.log(err)

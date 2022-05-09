@@ -47,9 +47,21 @@ export default class Room extends react.Component {
                         ID: info[2][0],
                         Name:info[2][1],
                     },
-                    Medal:info[3],
                     Msg:info[1],
                     IsEmoji:info[0][12]===1,
+                }
+                if(info[3].length>0) {
+                    danma.Medal = {
+                        Display: info[3][11]===1,
+                        Level:info[3][0],
+                        Name:info[3][1],
+                        Up:info[3][2],
+                        Color: {
+                            Background: info[3][4].toString(16),
+                            From: info[3][7].toString(16),
+                            To: info[3][8].toString(16),
+                        },
+                    }
                 }
                 break
             default:
@@ -117,7 +129,7 @@ export default class Room extends react.Component {
     componentDidMount() {
         new MutationObserver(()=>{
             if(!this.state.scrolled) {
-                //todo 添加开关
+                //todo 滚动动画开关
                 /*let el=document.getElementById('container')
                 el.scrollTop=el.scrollHeight*/
                 document.getElementById('bottom').scrollIntoView({behavior:'smooth',block:'end'})
