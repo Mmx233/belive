@@ -1,5 +1,5 @@
 import react from "react";
-import {TextField} from "@mui/material";
+import {TextField,Typography} from "@mui/material";
 
 import InputArea from "../elements/InputArea";
 import SwitchArea from "../elements/SwitchArea";
@@ -9,10 +9,14 @@ export default class GeneralForm extends react.Component {
         super(props);
 
         this.handleSwitchChange = this.handleSwitchChange.bind(this);
+        this.handleSwitch2Change = this.handleSwitch2Change.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
     handleSwitchChange(index,value){
         this.props.handleChange("switches",index,value);
+    }
+    handleSwitch2Change(index,value){
+        this.props.handleChange("switches2",index,value);
     }
     handleInputChange(index,value){
         this.props.handleChange("inputs",index,value);
@@ -37,6 +41,13 @@ export default class GeneralForm extends react.Component {
             <SwitchArea
                 data={this.props.data.switches}
                 handleChange={this.handleSwitchChange}
+            />
+
+            <Typography variant={"h6"} sx={{marginBottom:"0.5em"}}>弹幕设置</Typography>
+
+            <SwitchArea
+                data={this.props.data.switches2}
+                handleChange={this.handleSwitch2Change}
             />
 
             <InputArea

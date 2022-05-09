@@ -120,7 +120,11 @@ export default class Room extends react.Component {
         return this.state.Danmaku.map((danma)=>{
             switch (danma.Type) {
                 case 'DANMU_MSG':
-                    return <TextMsg key={danma.ID} danma={danma}/>
+                    return <TextMsg
+                        key={danma.ID}
+                        danma={danma}
+                        Options={this.state.Options}
+                    />
                 default:
                     return null
             }
@@ -129,10 +133,11 @@ export default class Room extends react.Component {
     componentDidMount() {
         new MutationObserver(()=>{
             if(!this.state.scrolled) {
-                //todo 滚动动画开关
-                /*let el=document.getElementById('container')
-                el.scrollTop=el.scrollHeight*/
-                document.getElementById('bottom').scrollIntoView({behavior:'smooth',block:'end'})
+                if(this.state.Options.General.switches2.scroll_animate.value)document.getElementById('bottom').scrollIntoView({behavior:'smooth',block:'end'})
+                else {
+                    let el=document.getElementById('container')
+                    el.scrollTop=el.scrollHeight
+                }
             }
         }).observe(document.getElementById('chat-items'),{childList:true})
         window.addEventListener('wheel',(e)=>{

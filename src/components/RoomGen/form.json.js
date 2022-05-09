@@ -29,6 +29,10 @@ export let General={
         merge_gift:{disabled: true,label: "合并礼物", value: false},
         translated_danmaku_only:{disabled: true,label: "只显示翻译弹幕", value: false},
     },
+    switches2: {
+        scroll_animate:{label: "滚动动画", value: true},
+        display_medal:{label: "显示勋章", value: true},
+    },
     inputs: {
         translation_sign:{disabled: true,label: "翻译弹幕首字符", value: "【"},
         min_gift_price:{disabled: true,label: "打赏弹幕最低显示价格(元)", value: 0,type:"number",inputProps:{min:0}},

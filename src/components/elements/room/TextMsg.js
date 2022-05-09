@@ -35,7 +35,7 @@ export default class TextMsg extends react.Component {
                 marginRight: '0.4rem',
                 boxSizing: 'border-box',
                 "& > img": {
-                    width: 'auto',
+                    width: '100%',
                     height: '100%',
                     borderRadius: '50%',
                 }
@@ -61,7 +61,8 @@ export default class TextMsg extends react.Component {
                     }
                 }}>
                     <span>{this.props.danma.User.Name}</span>
-                    {this.props.danma.Medal&&this.props.danma.Medal.Display?<Box
+                    {this.props.Options.General.switches2.display_medal.value&&
+                    this.props.danma.Medal&&this.props.danma.Medal.Display?<Box
                         sx={{
                             //padding: '1.5px 2px',
                             borderRadius: '2px',

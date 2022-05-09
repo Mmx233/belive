@@ -7,7 +7,7 @@ export function ConnectDanmaku(room_id) {
 
 export async function AvatarUrl(uid){
     let raw = localStorage.getItem(`avatar-${uid}`)
-    if(raw!==undefined) {
+    if(raw!==null) {
         let data=JSON.parse(raw)
         if(data.expire>Date.now()) {
             return data.url
