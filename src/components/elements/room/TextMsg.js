@@ -7,11 +7,12 @@ export default class TextMsg extends react.Component {
     constructor(props) {
         super(props);
         this.state = {
-            avatar: "https://static.hdslb.com/images/member/noface.gif",
+            avatar: "/img/noface.jpg",
         }
     }
     componentDidMount() {
         AvatarUrl(this.props.danma.User.ID).then(url => {
+            if(url.indexOf("noface")!==-1)return
             this.setState({
                 avatar: url+'@240w_240h_1c_1s.webp',
             })
